@@ -320,12 +320,13 @@
             }
         }
 
-        window.onload = function() {
-            const matrixData = {{ matrix|tojson | safe }}; // Pass matrix data to JavaScript
+    window.onload = function() {
+            const matrixData = localStorage.getItem('matrixData');
             if (matrixData) {
-                const matrix = matrixData;
-                console.log(matrix);
+                const matrix = JSON.parse(matrixData);
                 processMatrix(matrix);
+            } else {
+                alert('Not found matrix data');
             }
         };
 

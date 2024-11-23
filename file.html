@@ -353,96 +353,57 @@ document.addEventListener('click', function(event) {
             return currentMatrix;
         }
 
-        // 跳转到生成概念格页面并传递矩阵数据
-        function generateConceptLattice() {
+        // 保存矩阵数据到LocalStorage
+        function saveToLocalStorage() {
             const matrix = getCurrentMatrix();
-            const matrixData = JSON.stringify(matrix);
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = '/GCCL/concept_lattice';
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = 'matrix';
-            input.value = matrixData;
-            form.appendChild(input);
-            document.body.appendChild(form);
-            form.submit();
+            localStorage.setItem('matrixData', JSON.stringify(matrix));
+            alert('矩阵数据已保存到LocalStorage');
+        }
+
+        // 获取当前矩阵数据
+        function generateConceptLattice() {
+            saveToLocalStorage();
+            window.location.href = '/GCCL/concept_lattice';
         }
 
         function generateiceberg() {
-            const matrix = getCurrentMatrix();
-            const matrixData = JSON.stringify(matrix);
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = '/GCCL/iceberg';
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = 'matrix';
-            input.value = matrixData;
-            form.appendChild(input);
-            document.body.appendChild(form);
-            form.submit();
+            saveToLocalStorage();
+            window.location.href = '/GCCL/iceberg';
         }
 
         function generatecredible() {
-            const matrix = getCurrentMatrix();
-            const matrixData = JSON.stringify(matrix);
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = '/GCCL/credible';
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = 'matrix';
-            input.value = matrixData;
-            form.appendChild(input);
-            document.body.appendChild(form);
-            form.submit();
+            saveToLocalStorage();
+            window.location.href = '/GCCL/credible';
         }
 
         function generatetop_k() {
-            const matrix = getCurrentMatrix();
-            const matrixData = JSON.stringify(matrix);
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = '/GCCL/top_k';
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = 'matrix';
-            input.value = matrixData;
-            form.appendChild(input);
-            document.body.appendChild(form);
-            form.submit();
+            saveToLocalStorage();
+            window.location.href = '/GCCL/top_k';
         }
 
         function generatefuzzy() {
-            const matrix = getCurrentMatrix();
-            const matrixData = JSON.stringify(matrix);
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = '/GCCL/fuzzy';
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = 'matrix';
-            input.value = matrixData;
-            form.appendChild(input);
-            document.body.appendChild(form);
-            form.submit();
+            saveToLocalStorage();
+            window.location.href = '/GCCL/fuzzy';
         }
 
         function generatefairness() {
-            const matrix = getCurrentMatrix();
-            const matrixData = JSON.stringify(matrix);
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = '/GCCL/fairness';
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = 'matrix';
-            input.value = matrixData;
-            form.appendChild(input);
-            document.body.appendChild(form);
-            form.submit();
+            saveToLocalStorage();
+            window.location.href = '/GCCL/fairness';
         }
+
+        // 在目标页面加载矩阵数据
+        function loadFromLocalStorage() {
+            const matrixData = localStorage.getItem('matrixData');
+            if (matrixData) {
+                const matrix = JSON.parse(matrixData);
+                return matrix;
+            } else {
+                alert('没有找到矩阵数据');
+            }
+        }
+
+        // 页面加载时调用loadFromLocalStorage函数
+        window.onload = loadFromLocalStorage;
     </script>
 </head>
 <body onload="toggleSubmenu(event, 'fileSubmenu', true)">
